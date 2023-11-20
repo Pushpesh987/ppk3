@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'app_bar.dart';
 import 'bottom_navigation/bottom_navigation_bar.dart';
+import 'homepage_FirstContainer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,9 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(),
-      body: const Center(
-        child: Text('Welcome to the Home Page!'),
-      ),
+      body: HomepageFirstContainer(), // Replace with your HomepageFirstContainer
       bottomNavigationBar: MyBottomNavigationBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,

@@ -107,7 +107,10 @@ class _LoginPageState extends State<LoginPage> {
                 width: 342.0,
                 height: 62.0,
                 child: ElevatedButton(
-                  onPressed: () => navigateToHomePage(context),
+                  onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                ),
                   child: const Text(
                     'LOGIN',
                     style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,), // Adjust the font size as needed
@@ -143,10 +146,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void navigateToHomePage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
-  }
+  // void navigateToHomePage(BuildContext context) {
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => const HomePage()),
+  //   );
+  // }
 }
