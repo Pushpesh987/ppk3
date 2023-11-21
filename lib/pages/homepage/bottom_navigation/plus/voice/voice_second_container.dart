@@ -25,7 +25,9 @@ class _VoiceContainerState extends State<VoiceContainer> {
 
     // Emit the current date and time every second
     Timer.periodic(Duration(seconds: 1), (timer) {
-      _dateTimeController.add(DateTime.now());
+      if (!_dateTimeController.isClosed) {
+        _dateTimeController.add(DateTime.now());
+      }
     });
   }
 

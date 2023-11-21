@@ -1,10 +1,14 @@
-// pages/homepage/bottom_navigation/plus/voice/voice_page.dart
+// voice_page.dart
 import 'package:flutter/material.dart';
 import '../../../app_bar.dart';
 import 'voice_second_container.dart';
-import 'voice_third_container.dart'; // Import the third container file
+import 'voice_third_container.dart';
 
 class VoicePage extends StatelessWidget {
+  final String phoneNumber;
+
+  const VoicePage({Key? key, required this.phoneNumber}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +30,7 @@ class VoicePage extends StatelessWidget {
                   ),
                   width: 410.0,
                   height: 52.0,
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -42,11 +46,11 @@ class VoicePage extends StatelessWidget {
                           ),
                           SizedBox(width: 8.0),
                           Text(
-                            '7986525131',
+                            '${phoneNumber.toString()}', // Ensure phoneNumber is converted to String
                             style: TextStyle(
                               color: Color(0xFF331640),
-                              fontWeight: FontWeight.bold,
                               fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -88,6 +92,8 @@ class VoicePage extends StatelessWidget {
               ),
               // Third container
               VoiceThirdContainer(),
+
+              // Display the entered phone number
             ],
           ),
         ),

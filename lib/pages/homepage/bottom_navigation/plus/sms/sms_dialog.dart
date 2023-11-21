@@ -116,7 +116,8 @@ class _SmsDialogState extends State<SmsDialog> {
     // Mock sending SMS
 
     // Close the dialog and navigate to the homepage
-    Navigator.pop(context);
+    // Navigator.pop(context);
+
     // Replace the below line with your navigation logic to the homepage
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const HomePage()));

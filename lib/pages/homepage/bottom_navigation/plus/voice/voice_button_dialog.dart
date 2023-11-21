@@ -1,9 +1,29 @@
-// pages/homepage/bottom_navigation/plus/voice/voice_button_dialog.dart
+// voice_button_dialog.dart
 import 'package:flutter/material.dart';
 import 'voice_page.dart';
 
-class VoiceButtonDialog extends StatelessWidget {
+class VoiceButtonDialog extends StatefulWidget {
   const VoiceButtonDialog({super.key});
+
+  @override
+  _VoiceButtonDialogState createState() => _VoiceButtonDialogState();
+}
+
+class _VoiceButtonDialogState extends State<VoiceButtonDialog> {
+  late TextEditingController _phoneNumberController;
+  bool isCallButtonEnabled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneNumberController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +91,25 @@ class VoiceButtonDialog extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  const TextField(
+                  TextField(
+                    controller: _phoneNumberController,
+                    onChanged: (value) {
+                      setState(() {
+                        // Enable the "Make a Call" button only if the phone number has 10 digits
+                        isCallButtonEnabled = value.length == 10;
+                      });
+                    },
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(labelText: 'Enter Phone Number'),
                   ),
                   const SizedBox(height: 16.0),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      // Handle make a call button tap
-                      makeVoiceCall(context);
-                    },
+                    onPressed: isCallButtonEnabled
+                        ? () {
+                            // Handle make a call button tap
+                            makeVoiceCall(context);
+                          }
+                        : null, // Disable the button if conditions are not met
                     icon: const Icon(Icons.phone),
                     label: const Text('Make a Call'),
                   ),
@@ -95,10 +125,15 @@ class VoiceButtonDialog extends StatelessWidget {
   void makeVoiceCall(BuildContext context) {
     // Mock making a voice call
 
+    // Get the entered phone number
+    String phoneNumber = _phoneNumberController.text;
+
     // Close the dialog and navigate to the homepage
     Navigator.pop(context);
     // Replace the below line with your navigation logic to the homepage
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => VoicePage()));
+      context,
+      MaterialPageRoute(builder: (context) => VoicePage(phoneNumber: phoneNumber)),
+    );
   }
 }
