@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'homepage_third_container.dart';
+// import 'homepage_third_container.dart';
 
 // Import necessary packages and classes
 
@@ -220,9 +220,6 @@ class HomepageFirstContainer extends StatelessWidget {
                     ),
                   ),
                 ),
-                // const SizedBox(height: 20.0),
-                // Third Container
-                // HomepageThirdContainer(),
               ],
             ),
           ],

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'app_bar.dart';
 import 'bottom_navigation/bottom_navigation_bar.dart';
 import 'homepage_FirstContainer.dart';
+import 'homepage_third_container.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,7 +21,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(),
-      body: HomepageFirstContainer(), // Replace with your HomepageFirstContainer
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            HomepageFirstContainer(),
+            const SizedBox(height: 16.0),
+            HomepageThirdContainer(), // Include the third container here
+            const SizedBox(height: 20.0),
+          ],
+        ),
+      ),
       bottomNavigationBar: MyBottomNavigationBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
