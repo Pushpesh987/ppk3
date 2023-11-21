@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
               _buildEditableBox(
                 'Station ID',
                 'Enter your Station ID',
-                obscureText: true,
+                // obscureText: true,
                 controller: passwordController,
               ),
               const SizedBox(

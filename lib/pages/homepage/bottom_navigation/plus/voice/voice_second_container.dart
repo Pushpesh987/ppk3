@@ -42,7 +42,7 @@ class VoiceContainer extends StatelessWidget {
                         fontSize: 20.0,
                       ),
                     ),
-                    const SizedBox(width: 130.0),
+                    const SizedBox(width: 82.0),
                     SvgPicture.asset(
                       'assets/maximize.svg',
                       height: 25.0,
@@ -111,7 +111,7 @@ class VoiceContainer extends StatelessWidget {
                         ),
                         SizedBox(width: 8.0),
                         SizedBox(
-                          width: 100,
+                          width: 85,
                           child: Text(
                             'sip_2023111006527_22501000',
                             style: TextStyle(
@@ -144,7 +144,7 @@ class VoiceContainer extends StatelessWidget {
                       'assets/direction-right.svg',
                       'Out',
                     ),
-                    SizedBox(width: 45.0),
+                    SizedBox(width: 31.0),
                     buildIconWithText(
                       'assets/navigation.svg',
                       'Callflow',

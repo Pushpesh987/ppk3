@@ -33,7 +33,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 icon: const Icon(
                   Icons.notifications,
                   size: 30.0,
-                  color: Color(0xFF331640),
+                  color: Color(0xFFA54DC9),
                 ),
                 onPressed: () {
                   // Show the notification dialog

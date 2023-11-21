@@ -53,15 +53,15 @@ class _MailPageState extends State<MailPage> {
               _buildInputField("Subject"),
               const Divider(),
               SizedBox(
-                height: 60.0, // Adjusted height to create space between "Compose Email" and the button
+                height:
+                    60.0, // Adjusted height to create space between "Compose Email" and the button
                 child: _buildComposeEmailField(),
               ),
-              const SizedBox(height: 8.0), // Adjusted height
-              _buildSendButton(),
             ],
           ),
         ),
       ),
+      floatingActionButton: _buildSendButton(),
     );
   }
 
@@ -89,7 +89,9 @@ class _MailPageState extends State<MailPage> {
                 ),
               ),
               IconButton(
-                icon: Icon(isCcBccVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down),
+                icon: Icon(isCcBccVisible
+                    ? Icons.arrow_drop_up
+                    : Icons.arrow_drop_down),
                 onPressed: () {
                   setState(() {
                     isCcBccVisible = !isCcBccVisible;
@@ -114,22 +116,20 @@ class _MailPageState extends State<MailPage> {
   }
 
   Widget _buildSendButton() {
-    return Container(
-      margin: const EdgeInsets.only(top: 340.0, right: 20.0), // Adjusted margin
-      child: Align(
-        alignment: Alignment.bottomRight,
-        child: ElevatedButton.icon(
-          onPressed: () {
-            // Handle send button tap
-          },
-          icon: Icon(Icons.send),
-          label: Text('Send'),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 25.0),
+    return Positioned(
+      bottom: 20.0, // Adjust the bottom value as needed
+      right: 20.0, // Adjust the right value as needed
+      child: ElevatedButton.icon(
+        onPressed: () {
+          // Handle send button tap
+        },
+        icon: Icon(Icons.send),
+        label: Text('Send'),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
           ),
+          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 25.0),
         ),
       ),
     );

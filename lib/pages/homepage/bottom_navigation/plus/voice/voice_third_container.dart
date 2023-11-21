@@ -34,7 +34,7 @@ class VoiceThirdContainer extends StatelessWidget {
                         fontSize: 20.0,
                       ),
                     ),
-                    const SizedBox(width: 94.0),
+                    const SizedBox(width: 59.0),
                     SvgPicture.asset(
                       'assets/maximize.svg',
                       height: 25.0,
