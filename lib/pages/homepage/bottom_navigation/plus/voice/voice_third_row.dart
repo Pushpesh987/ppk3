@@ -100,7 +100,7 @@ class FourthRow extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         // Navigate to the homepage when the button is pressed
-        Navigator.pushNamed(context, '/');
+        Navigator.pop(context);
       },
       style: ElevatedButton.styleFrom(
         primary: Colors.red,

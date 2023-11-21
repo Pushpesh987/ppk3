@@ -42,7 +42,7 @@ class HomepageFirstContainer extends StatelessWidget {
                           fontSize: 20.0,
                         ),
                       ),
-                      const SizedBox(width: 84.0),
+                      const SizedBox(width: 51.0),
                       SvgPicture.asset(
                         'assets/maximize.svg',
                         height: 25.0,

@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                             'LogIn',
                             style: TextStyle(
                               fontSize: 23.0,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
                         ),
@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                   const Text('Login to Webphone?'),
                 ],
               ),
-              const SizedBox(height: 80.0),
+              const SizedBox(height: 60.0),
               SizedBox(
                 width: 342.0,
                 height: 62.0,

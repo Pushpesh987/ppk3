@@ -37,7 +37,7 @@ class HomepageThirdContainer extends StatelessWidget {
                           fontSize: 20.0,
                         ),
                       ),
-                      const SizedBox(width: 120.0),
+                      const SizedBox(width: 84.0),
                       SvgPicture.asset(
                         'assets/maximize.svg',
                         height: 25.0,
