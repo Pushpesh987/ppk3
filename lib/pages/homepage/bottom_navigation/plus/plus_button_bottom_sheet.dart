@@ -1,4 +1,4 @@
-// plus_button_bottom_sheet.dart
+// pages/homepage/bottom_navigation/plus/plus_button_bottom_sheet.dart
 import 'package:flutter/material.dart';
 import 'mail/mail_button_dialog.dart';
 import 'sms/sms_dialog.dart';
@@ -7,23 +7,24 @@ import 'voice/voice_button_dialog.dart';
 class PlusButtonBottomSheet extends StatelessWidget {
   final BuildContext parentContext;
 
-  const PlusButtonBottomSheet({super.key, required this.parentContext});
+  const PlusButtonBottomSheet({Key? key, required this.parentContext})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _buildMenuItem('SMS', Icons.sms, parentContext),
+        _buildMenuItem('SMS', Icons.sms, _showSmsDialog),
         _buildDivider(),
-        _buildMenuItem('Voice', Icons.mic, parentContext),
+        _buildMenuItem('Voice', Icons.mic, _showVoiceButtonDialog),
         _buildDivider(),
-        _buildMenuItem('Mail', Icons.mail, parentContext),
+        _buildMenuItem('Mail', Icons.mail, _showMailButtonDialog),
       ],
     );
   }
 
-  Widget _buildMenuItem(String text, IconData iconData, BuildContext context) {
+  Widget _buildMenuItem(String text, IconData iconData, Function() onTap) {
     return ListTile(
       title: Center(
         child: Row(
@@ -44,18 +45,7 @@ class PlusButtonBottomSheet extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {
-        if (text == 'Voice') {
-          _showVoiceButtonDialog(context);
-        } else if (text == 'Mail') {
-          _showMailButtonDialog(context);
-        } else if (text == 'SMS') {
-          _showSmsDialog(context);
-        } else {
-          Navigator.pop(context); // Close the bottom sheet
-          // Handle other items or navigate to corresponding pages
-        }
-      },
+      onTap: onTap,
     );
   }
 
@@ -63,31 +53,31 @@ class PlusButtonBottomSheet extends StatelessWidget {
     return const Divider(
       thickness: 1.0,
       height: 0,
-      color: Colors.grey,
+      color: Color(0xFF331640),
     );
   }
 
-  void _showVoiceButtonDialog(BuildContext context) {
+  void _showVoiceButtonDialog() {
     showDialog(
-      context: context,
+      context: parentContext,
       builder: (BuildContext context) {
         return const VoiceButtonDialog();
       },
     );
   }
 
-  void _showMailButtonDialog(BuildContext context) {
+  void _showMailButtonDialog() {
     showDialog(
-      context: context,
+      context: parentContext,
       builder: (BuildContext context) {
         return const MailButtonDialog();
       },
     );
   }
 
-  void _showSmsDialog(BuildContext context) {
+  void _showSmsDialog() {
     showDialog(
-      context: context,
+      context: parentContext,
       builder: (BuildContext context) {
         return const SmsDialog();
       },

@@ -1,3 +1,5 @@
+// pages/login_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'homepage/home_page.dart';
@@ -45,10 +47,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 50.0),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start, // Align to the start (left)
+                      mainAxisAlignment:
+                          MainAxisAlignment.start, // Align to the start (left)
                       children: [
                         const Padding(
-                          padding: EdgeInsets.only(left: 10.0), // Adjust the left padding as needed
+                          padding: EdgeInsets.only(
+                              left: 10.0), // Adjust the left padding as needed
                           child: Text(
                             'LogIn',
                             style: TextStyle(
@@ -62,7 +66,9 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 30.0), // Add some space between the text and the next widget
+              const SizedBox(
+                  height:
+                      30.0), // Add some space between the text and the next widget
               _buildEditableBox(
                 'Lan ID',
                 'Enter your LAN ID',
@@ -75,7 +81,9 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 controller: passwordController,
               ),
-              const SizedBox(height: 16.0), // Add some space between password and the switches
+              const SizedBox(
+                  height:
+                      16.0), // Add some space between password and the switches
               Row(
                 children: [
                   Switch(
@@ -102,18 +110,25 @@ class _LoginPageState extends State<LoginPage> {
                   const Text('Login to Webphone?'),
                 ],
               ),
-              const SizedBox(height: 30.0),
+              const SizedBox(height: 80.0),
               SizedBox(
                 width: 342.0,
                 height: 62.0,
                 child: ElevatedButton(
                   onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                ),
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white, backgroundColor: Color(0xFF331640), // Change the text color of the button
+                  ),
                   child: const Text(
                     'LOGIN',
-                    style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold,), // Adjust the font size as needed
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFF1EAF4), // Change the text color
+                    ),
                   ),
                 ),
               ),
@@ -145,11 +160,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  // void navigateToHomePage(BuildContext context) {
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => const HomePage()),
-  //   );
-  // }
 }

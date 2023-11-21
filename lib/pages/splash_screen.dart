@@ -8,8 +8,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Add a delay of 100 milliseconds using Future.delayed
-    Future.delayed(const Duration(milliseconds: 5000), () {
+    // Add a delay of 1000 milliseconds using Future.delayed
+    Future.delayed(const Duration(milliseconds: 1000), () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),

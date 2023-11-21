@@ -1,4 +1,4 @@
-// bottom_navigation_bar.dart
+// pages/homepage/bottom_navigation/bottom_navigation_bar.dart
 import 'package:flutter/material.dart';
 import 'plus/plus_button_bottom_sheet.dart';
 import 'profile/profile_bottom_sheet.dart';

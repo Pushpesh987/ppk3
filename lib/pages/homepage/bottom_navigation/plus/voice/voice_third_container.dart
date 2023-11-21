@@ -1,4 +1,4 @@
-// voice_third_container.dart
+// pages/homepage/bottom_navigation/plus/voice/voice_third_container.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -36,14 +36,14 @@ class VoiceThirdContainer extends StatelessWidget {
                     ),
                     const SizedBox(width: 94.0),
                     SvgPicture.asset(
-                      'assets/minimize.svg',
+                      'assets/maximize.svg',
                       height: 25.0,
                       width: 25.0,
                       color: const Color(0xFF331640),
                     ),
                     const SizedBox(width: 17.0),
                     SvgPicture.asset(
-                      'assets/maximize.svg',
+                      'assets/minimize.svg',
                       height: 25.0,
                       width: 25.0,
                       color: const Color(0xFF331640),

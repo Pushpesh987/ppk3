@@ -1,4 +1,4 @@
-// homepage_third_container.dart
+// pages/homepage/homepage_third_container.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,7 +37,7 @@ class HomepageThirdContainer extends StatelessWidget {
                           fontSize: 20.0,
                         ),
                       ),
-                      const SizedBox(width: 94.0),
+                      const SizedBox(width: 120.0),
                       SvgPicture.asset(
                         'assets/maximize.svg',
                         height: 25.0,

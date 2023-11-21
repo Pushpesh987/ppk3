@@ -1,4 +1,4 @@
-// mail_button_dialog.dart
+// \// pages/homepage/bottom_navigation/plus/mail/mail_button_dialog.dart
 import 'package:flutter/material.dart';
 import 'mail_page.dart';
 
@@ -66,7 +66,7 @@ class MailButtonDialog extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: const Color.fromARGB(255, 209, 105, 105),
+                color: const Color(0xFFFBF1FF),
               ),
               padding: const EdgeInsets.all(16.0),
               child: Column(

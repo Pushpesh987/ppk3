@@ -59,14 +59,14 @@ class _ProfileBottomSheetState extends State<ProfileBottomSheet> {
             width: 80.0,
             height: 80.0,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: const Center(
               child: Icon(
                 Icons.person,
                 size: 40.0,
-                color: Colors.white,
+                color: Color(0xFF331640),
               ),
             ),
           ),
