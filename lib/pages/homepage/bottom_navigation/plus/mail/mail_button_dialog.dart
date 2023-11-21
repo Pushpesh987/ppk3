@@ -1,9 +1,19 @@
-// \// pages/homepage/bottom_navigation/plus/mail/mail_button_dialog.dart
+// mail_button_dialog.dart
 import 'package:flutter/material.dart';
 import 'mail_page.dart';
 
-class MailButtonDialog extends StatelessWidget {
-  const MailButtonDialog({super.key});
+class MailButtonDialog extends StatefulWidget {
+  final Function(String) onEmailSelected;
+
+  const MailButtonDialog({Key? key, required this.onEmailSelected}) : super(key: key);
+
+  @override
+  _MailButtonDialogState createState() => _MailButtonDialogState();
+}
+
+class _MailButtonDialogState extends State<MailButtonDialog> {
+  String selectedMail = 'Select the mail';
+  bool isSendButtonEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +81,36 @@ class MailButtonDialog extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  const TextField(
-                    decoration: InputDecoration(labelText: 'Enter Email Address'),
+                  DropdownButtonFormField<String>(
+                    value: selectedMail,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedMail = newValue!;
+                        isSendButtonEnabled = true; // Enable the button when mail is selected
+                      });
+                    },
+                    items: <String>['Select the mail', 't1978280@gmail.com'].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      labelText: 'Select the mail',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 16.0),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      // Handle send email button tap
-                      sendEmail(context);
-                    },
+                    onPressed: isSendButtonEnabled
+                        ? () {
+                            // Handle send email button tap
+                            widget.onEmailSelected(selectedMail);
+                            sendEmail(context);
+                          }
+                        : null,
                     icon: const Icon(Icons.email),
                     label: const Text('Send Email'),
                   ),
@@ -99,6 +130,8 @@ class MailButtonDialog extends StatelessWidget {
     Navigator.pop(context);
     // Replace the below line with your navigation logic to the homepage
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const MailPage()));
+      context,
+      MaterialPageRoute(builder: (context) => MailPage(selectedMail: selectedMail)),
+    );
   }
 }

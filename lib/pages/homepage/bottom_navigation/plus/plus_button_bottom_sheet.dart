@@ -1,4 +1,4 @@
-// pages/homepage/bottom_navigation/plus/plus_button_bottom_sheet.dart
+// plus_button_bottom_sheet.dart
 import 'package:flutter/material.dart';
 import 'mail/mail_button_dialog.dart';
 import 'sms/sms_dialog.dart';
@@ -70,7 +70,12 @@ class PlusButtonBottomSheet extends StatelessWidget {
     showDialog(
       context: parentContext,
       builder: (BuildContext context) {
-        return const MailButtonDialog();
+        return MailButtonDialog(
+          onEmailSelected: (String selectedEmail) {
+            // Handle the selected email if needed
+            print('Selected Email: $selectedEmail');
+          },
+        );
       },
     );
   }

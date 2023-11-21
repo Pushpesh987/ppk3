@@ -1,16 +1,33 @@
-// pages/homepage/bottom_navigation/plus/mail/mail_page.dart
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'success_dialog.dart';
 
 class MailPage extends StatefulWidget {
-  const MailPage({Key? key}) : super(key: key);
+  final String selectedMail;
+
+  const MailPage({Key? key, required this.selectedMail}) : super(key: key);
 
   @override
   _MailPageState createState() => _MailPageState();
 }
 
 class _MailPageState extends State<MailPage> {
-  bool isCcBccVisible = false;
+  TextEditingController fromController = TextEditingController();
   TextEditingController toController = TextEditingController();
+  TextEditingController ccController = TextEditingController();
+  TextEditingController bccController = TextEditingController();
+  TextEditingController subjectController = TextEditingController();
+  TextEditingController composeEmailController = TextEditingController();
+
+  bool isCcBccVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the selected email in the "From" input box
+    fromController.text = widget.selectedMail;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,21 +57,20 @@ class _MailPageState extends State<MailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildInputField("From"),
+              _buildInputField("From", fromController),
               const Divider(),
-              _buildToField(),
+              _buildToInputField(),
               if (isCcBccVisible) ...[
-                const Divider(), // Divider between "To" and "Cc" when expanded
-                _buildInputField("Cc"),
                 const Divider(),
-                _buildInputField("Bcc"),
+                _buildInputField("Cc", ccController),
+                const Divider(),
+                _buildInputField("Bcc", bccController),
               ],
-              const Divider(), // Divider between "Bcc" and "Subject"
-              _buildInputField("Subject"),
+              const Divider(),
+              _buildInputField("Subject", subjectController),
               const Divider(),
               SizedBox(
-                height:
-                    60.0, // Adjusted height to create space between "Compose Email" and the button
+                height: 60.0,
                 child: _buildComposeEmailField(),
               ),
             ],
@@ -65,8 +81,9 @@ class _MailPageState extends State<MailPage> {
     );
   }
 
-  Widget _buildInputField(String label) {
+  Widget _buildInputField(String label, TextEditingController controller) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         labelText: label,
         border: InputBorder.none,
@@ -74,63 +91,130 @@ class _MailPageState extends State<MailPage> {
     );
   }
 
-  Widget _buildToField() {
+  Widget _buildToInputField() {
     return Row(
       children: [
         Expanded(
-          child: Stack(
-            alignment: Alignment.centerRight,
-            children: [
-              TextField(
-                controller: toController,
-                decoration: InputDecoration(
-                  labelText: "To",
-                  border: InputBorder.none,
-                ),
-              ),
-              IconButton(
-                icon: Icon(isCcBccVisible
-                    ? Icons.arrow_drop_up
-                    : Icons.arrow_drop_down),
-                onPressed: () {
-                  setState(() {
-                    isCcBccVisible = !isCcBccVisible;
-                  });
-                },
-              ),
-            ],
+          child: TextField(
+            controller: toController,
+            decoration: InputDecoration(
+              labelText: "To",
+              border: InputBorder.none,
+            ),
           ),
+        ),
+        IconButton(
+          icon: Icon(
+            isCcBccVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+          ),
+          onPressed: () {
+            setState(() {
+              isCcBccVisible = !isCcBccVisible;
+            });
+          },
         ),
       ],
     );
   }
 
   Widget _buildComposeEmailField() {
-    return TextField(
-      maxLines: 5,
-      decoration: InputDecoration(
-        labelText: 'Compose Email',
-        border: InputBorder.none,
-      ),
+    return ExpandingTextField(
+      controller: composeEmailController,
+      hintText: 'Compose Email',
     );
   }
 
   Widget _buildSendButton() {
-    return Positioned(
-      bottom: 20.0, // Adjust the bottom value as needed
-      right: 20.0, // Adjust the right value as needed
-      child: ElevatedButton.icon(
-        onPressed: () {
-          // Handle send button tap
-        },
-        icon: Icon(Icons.send),
-        label: Text('Send'),
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+    return Stack(
+      children: [
+        Positioned(
+          bottom: 30.0,
+          right: 20.0,
+          child: ElevatedButton.icon(
+            onPressed: () {
+              _sendEmail();
+            },
+            icon: Icon(Icons.send),
+            label: Text('Send'),
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 30.0),
+            ),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 25.0),
         ),
+      ],
+    );
+  }
+
+  Future<void> _sendEmail() async {
+    String apiUrl = 'https://api.emailjs.com/api/v1.0/email/send';
+    String serviceId =
+        'service_wqduxmp'; // Replace with your EmailJS Service ID
+    String templateId =
+        'template_ot1o1gs'; // Replace with your EmailJS Template ID
+    String userId = 'LhfYoSBYWfeZSxNYJ'; // Replace with your EmailJS User ID
+
+    final requestBody = {
+      'service_id': serviceId,
+      'template_id': templateId,
+      'user_id': userId,
+      'template_params': {
+        'from': fromController.text,
+        'to': toController.text,
+        'cc': ccController.text,
+        'bcc': bccController.text,
+        'subject': subjectController.text,
+        'compose_email': composeEmailController.text,
+      },
+    };
+
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {'origin': 'http:localhost', 'Content-Type': 'application/json'},
+      body: jsonEncode(requestBody),
+    );
+
+    if (response.statusCode == 200) {
+      print('Email sent successfully');
+      _showSuccessDialog(context);
+    } else {
+      print('Error: ${response.statusCode}');
+    }
+  }
+
+  void _showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const SuccessDialog();
+      },
+    );
+  }
+}
+
+class ExpandingTextField extends StatefulWidget {
+  final TextEditingController controller;
+  final String hintText;
+
+  ExpandingTextField({required this.controller, required this.hintText});
+
+  @override
+  _ExpandingTextFieldState createState() => _ExpandingTextFieldState();
+}
+
+class _ExpandingTextFieldState extends State<ExpandingTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: widget.controller,
+      maxLines: null, // Set maxLines to null for infinite expansion
+      keyboardType: TextInputType.multiline,
+      decoration: InputDecoration(
+        hintText: widget.hintText,
+        border: InputBorder.none,
       ),
     );
   }
