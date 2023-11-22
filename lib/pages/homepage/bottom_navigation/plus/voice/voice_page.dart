@@ -1,13 +1,21 @@
 // voice_page.dart
+
 import 'package:flutter/material.dart';
 import '../../../app_bar.dart';
 import 'voice_second_container.dart';
 import 'voice_third_container.dart';
 
-class VoicePage extends StatelessWidget {
+class VoicePage extends StatefulWidget {
   final String phoneNumber;
 
   const VoicePage({Key? key, required this.phoneNumber}) : super(key: key);
+
+  @override
+  _VoicePageState createState() => _VoicePageState();
+}
+
+class _VoicePageState extends State<VoicePage> {
+  bool callEnded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +44,18 @@ class VoicePage extends StatelessWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundColor: Color(0xFFF3F2F4),
+                            backgroundColor: const Color(0xFFF3F2F4),
                             radius: 25.0,
                             child: Icon(
                               Icons.call,
-                              color: Color(0xFF331640),
+                              color: const Color(0xFF331640),
                               size: 23.0,
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           Text(
-                            '${phoneNumber.toString()}', // Ensure phoneNumber is converted to String
-                            style: TextStyle(
+                            widget.phoneNumber, // Ensure phoneNumber is converted to String
+                            style: const TextStyle(
                               color: Color(0xFF331640),
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -58,22 +66,37 @@ class VoicePage extends StatelessWidget {
                       Row(
                         children: [
                           CircleAvatar(
-                            backgroundColor: Color(0xFFF3F2F4),
+                            backgroundColor: callEnded
+                                ? Colors.grey // Disabled color when call is ended
+                                : const Color(0xFFF3F2F4),
                             radius: 25.0,
                             child: Icon(
                               Icons.pause,
-                              color: Color(0xFF331640),
+                              color: callEnded ? Colors.black : const Color(0xFF331640),
                               size: 23.0,
                             ),
                           ),
-                          SizedBox(width: 8.0),
+                          const SizedBox(width: 8.0),
                           CircleAvatar(
-                            backgroundColor: Color.fromARGB(255, 185, 6, 6),
+                            backgroundColor: callEnded
+                                ? Colors.grey // Disabled color when call is ended
+                                : const Color.fromARGB(255, 185, 6, 6),
                             radius: 25.0,
-                            child: Icon(
-                              Icons.call_end,
-                              color: Color.fromARGB(255, 255, 255, 255),
-                              size: 23.0,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.call_end,
+                                color: callEnded ? Colors.black : const Color.fromARGB(255, 255, 255, 255),
+                                size: 23.0,
+                              ),
+                              onPressed: callEnded
+                                  ? null // Disable button when call is ended
+                                  : () {
+                                      // Handle the call end button tap
+                                      setState(() {
+                                        callEnded = true;
+                                      });
+                                      // Add any additional logic you need here
+                                    },
                             ),
                           ),
                         ],
