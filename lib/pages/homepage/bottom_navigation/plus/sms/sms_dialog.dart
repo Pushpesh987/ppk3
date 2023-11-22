@@ -1,13 +1,9 @@
-// pages/homepage/bottom_navigation/plus/sms/sms_dialog.dart
-
-// ignore_for_file: library_private_types_in_public_api
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
-
-import '../../../home_page.dart';
+import 'package:http/http.dart' as http;
 
 class SmsDialog extends StatefulWidget {
-  const SmsDialog({super.key});
+  const SmsDialog({Key? key}) : super(key: key);
 
   @override
   _SmsDialogState createState() => _SmsDialogState();
@@ -16,6 +12,7 @@ class SmsDialog extends StatefulWidget {
 class _SmsDialogState extends State<SmsDialog> {
   TextEditingController toNumberController = TextEditingController();
   TextEditingController messageController = TextEditingController();
+  String resultMessage = ''; // Add a variable to store the result message
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,6 @@ class _SmsDialogState extends State<SmsDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // First rectangle box
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
@@ -74,11 +70,10 @@ class _SmsDialogState extends State<SmsDialog> {
               ),
             ),
             const SizedBox(height: 20.0),
-            // Second rectangle box
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                color: const Color.fromARGB(255, 209, 105, 105),
+                color: const Color(0xFFFBF1FF),
               ),
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -103,6 +98,15 @@ class _SmsDialogState extends State<SmsDialog> {
                     icon: const Icon(Icons.send),
                     label: const Text('Send'),
                   ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    resultMessage,
+                    style: TextStyle(
+                      color: resultMessage.contains('successfully')
+                          ? Colors.green
+                          : Colors.red,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -112,14 +116,54 @@ class _SmsDialogState extends State<SmsDialog> {
     );
   }
 
-  void sendSms(BuildContext context) {
-    // Mock sending SMS
+  Future<void> sendSms(BuildContext context) async {
+    String accountSid = 'ACadb978b44431b43d68d9b27250fe80b7';
+    String authToken = 'a0626795960e17a3f3425c1ce2c6251f';
+    String twilioNumber = '+16084674245';
 
-    // Close the dialog and navigate to the homepage
-    // Navigator.pop(context);
+    String toNumber = toNumberController.text;
+    String message = messageController.text;
 
-    // Replace the below line with your navigation logic to the homepage
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const HomePage()));
+    final response = await http.post(
+      Uri.parse(
+          'https://api.twilio.com/2010-04-01/Accounts/$accountSid/Messages.json'),
+      headers: {
+        'Authorization':
+            'Basic ' + base64Encode(utf8.encode('$accountSid:$authToken')),
+      },
+      body: {
+        'To': toNumber,
+        'From': twilioNumber,
+        'Body': message,
+      },
+    );
+
+    if (response.statusCode == 201) {
+      print('SMS sent successfully');
+      // Update the result message
+      setState(() {
+        resultMessage = 'SMS sent successfully';
+      });
+      // Show the success dialog
+      // _showSuccessDialog(context);
+      Navigator.pop(context); // Close the SMS dialog
+    } else {
+      print('Error sending SMS: ${response.reasonPhrase}');
+      // Update the result message
+      setState(() {
+        resultMessage = 'Error sending SMS';
+      });
+      // Show an error dialog
+      // _showErrorDialog(context);
+    }
   }
+
+  // void _showSuccessDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return const SuccessDialog();
+  //     },
+  //   );
+  // }
 }
