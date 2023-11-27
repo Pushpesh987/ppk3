@@ -21,15 +21,15 @@ for the sms and voice api make an account on the twillio
 https://www.twilio.com/en-us
 
 get these details:
-accountSid=your_twillio_accountSid
-authToken=your_twillio_authToken
-twilioNumber=your_twillio_twilioNumber
+accountSid=your_twillio_accountSid <br>
+authToken=your_twillio_authToken <br>
+twilioNumber=your_twillio_twilioNumber <br>
 
 
 for the mail make an account in emailjs
 https://www.emailjs.com/
 
 get these details:
-serviceId=your_emailjs_serviceId
-templateId=your_emailjs_templateId
-userId=your_emailjs_userId
+serviceId=your_emailjs_serviceId <br>
+templateId=your_emailjs_templateId <br>
+userId=your_emailjs_userId <br>
