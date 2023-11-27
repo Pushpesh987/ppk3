@@ -54,7 +54,7 @@ class _VoicePageState extends State<VoicePage> {
                           ),
                           const SizedBox(width: 8.0),
                           Text(
-                            widget.phoneNumber, // Ensure phoneNumber is converted to String
+                            "+91 ${widget.phoneNumber}", // Add +91 before the 10-digit number
                             style: const TextStyle(
                               color: Color(0xFF331640),
                               fontSize: 20.0,
@@ -80,12 +80,12 @@ class _VoicePageState extends State<VoicePage> {
                           CircleAvatar(
                             backgroundColor: callEnded
                                 ? Colors.grey // Disabled color when call is ended
-                                : const Color.fromARGB(255, 185, 6, 6),
+                                : Colors.red,
                             radius: 25.0,
                             child: IconButton(
                               icon: Icon(
                                 Icons.call_end,
-                                color: callEnded ? Colors.black : const Color.fromARGB(255, 255, 255, 255),
+                                color: callEnded ? Colors.black : Color.fromARGB(255, 255, 255, 255),
                                 size: 23.0,
                               ),
                               onPressed: callEnded

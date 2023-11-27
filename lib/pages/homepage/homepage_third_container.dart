@@ -1,7 +1,8 @@
-//  pages/homepage/homepage_third_container.dart
+// pages/homepage/homepage_third_container.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class HomepageThirdContainer extends StatelessWidget {
   @override
@@ -20,7 +21,7 @@ class HomepageThirdContainer extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded( // Wrap the container with Expanded
+                Expanded(
                   child: Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFFD3B3E2),
@@ -60,14 +61,56 @@ class HomepageThirdContainer extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16.0),
-            Expanded( // Wrap the container with Expanded
+            Expanded(
               child: Container(
                 padding: const EdgeInsets.all(10.0),
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 255, 255, 255),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                // Add your content for the first container here
+                child: PieChart(
+                  PieChartData(
+                    borderData: FlBorderData(show: false),
+                    sectionsSpace: 0,
+                    centerSpaceRadius: 40,
+                    startDegreeOffset: 180,
+                    sections: [
+                      PieChartSectionData(
+                        color: Colors.blue,
+                        value: 30,
+                        title: 'Call',
+                        radius: 80,
+                        titleStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF331640),
+                        ),
+                      ),
+                      PieChartSectionData(
+                        color: Colors.green,
+                        value: 40,
+                        title: 'voice',
+                        radius: 80,
+                        titleStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF331640),
+                        ),
+                      ),
+                      PieChartSectionData(
+                        color: Colors.orange,
+                        value: 30,
+                        title: 'Mail',
+                        radius: 80,
+                        titleStyle: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFF331640),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
