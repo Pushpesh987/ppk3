@@ -151,9 +151,9 @@ class _MailPageState extends State<MailPage> {
 
   Future<void> _sendEmail() async {
     String apiUrl = 'https://api.emailjs.com/api/v1.0/email/send';
-    String serviceId = ' ';
-    String templateId = ' ';
-    String userId = ' ';
+    String serviceId = 'service_wqduxmp';
+    String templateId = 'template_ot1o1gs';
+    String userId = 'LhfYoSBYWfeZSxNYJ';
 
     final requestBody = {
       'service_id': serviceId,
