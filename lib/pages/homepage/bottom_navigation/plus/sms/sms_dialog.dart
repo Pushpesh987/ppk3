@@ -117,9 +117,9 @@ class _SmsDialogState extends State<SmsDialog> {
   }
 
   Future<void> sendSms(BuildContext context) async {
-    String accountSid = 'ACadb978b44431b43d68d9b27250fe80b7';
-    String authToken = 'b1d514e688fef36b386fdc32ea4bbd4e';
-    String twilioNumber = '+16084674245';
+    String accountSid = '';
+    String authToken = '';
+    String twilioNumber = '';
 
     String toNumber = toNumberController.text;
     String message = messageController.text;
